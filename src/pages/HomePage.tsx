@@ -103,6 +103,59 @@ function HeroSection() {
 }
 
 function QuoteBanner() {
+  const [slides, setSlides] = useState<
+    { id: string; reference: string; content: string }[]
+  >([]);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    let mounted = true;
+    supabase
+      .from("slides")
+      .select("*")
+      .eq("active", true)
+      .order("position", { ascending: true })
+      .then(({ data }) => {
+        if (!mounted) return;
+        if (data && data.length > 0) {
+          setSlides(
+            data.map((s: any) => ({
+              id: s.id,
+              reference: s.reference,
+              content: s.content,
+            })),
+          );
+        } else {
+          setSlides([
+            {
+              id: "default",
+              reference: "Hebrews 4:12",
+              content:
+                "For the word of God is alive and active. Sharper than any double-edged sword, it penetrates even to dividing soul and spirit...",
+            },
+          ]);
+        }
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!slides || slides.length <= 1) return;
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % slides.length);
+    }, 30000);
+    return () => clearInterval(timer);
+  }, [slides]);
+
+  const slide = slides[index] || {
+    reference: "Hebrews 4:12",
+    content:
+      "For the word of God is alive and active. Sharper than any double-edged sword, it penetrates even to dividing soul and spirit...",
+  };
+
   return (
     <section className="py-16 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-amber-400/3 to-amber-500/5" />
@@ -113,13 +166,17 @@ function QuoteBanner() {
           size={36}
           className="text-amber-400/30 mx-auto mb-5 animate-float"
         />
-        <p className="text-xl md:text-2xl text-slate-200 italic leading-relaxed font-light">
-          "For the word of God is alive and active. Sharper than any
-          double-edged sword, it penetrates even to dividing soul and spirit..."
-        </p>
-        <p className="mt-4 text-amber-400 text-sm font-medium tracking-wider uppercase">
-          — Hebrews 4:12
-        </p>
+        <div
+          key={slide.id}
+          className="transition-opacity duration-300 ease-in-out"
+        >
+          <p className="text-xl md:text-2xl text-slate-200 italic leading-relaxed font-light">
+            {slide.content}
+          </p>
+          <p className="mt-4 text-amber-400 text-sm font-medium tracking-wider uppercase">
+            — {slide.reference}
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -183,7 +240,7 @@ export function HomePage() {
               </button>
             </div>
           </AnimatedSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
             {posts.map((post, i) => (
               <AnimatedSection key={post.id} delay={i * 100}>
                 <PostCard post={post} />
@@ -213,7 +270,7 @@ export function HomePage() {
               </button>
             </div>
           </AnimatedSection>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 auto-rows-fr">
             {books.map((book, i) => (
               <AnimatedSection key={book.id} delay={i * 80}>
                 <BookCard book={book} />
@@ -243,7 +300,7 @@ export function HomePage() {
               </button>
             </div>
           </AnimatedSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
             {videos.map((video, i) => (
               <AnimatedSection key={video.id} delay={i * 100}>
                 <VideoCard video={video} />

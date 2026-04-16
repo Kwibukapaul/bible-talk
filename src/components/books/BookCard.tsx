@@ -1,15 +1,16 @@
-import { Download, BookOpen, User } from 'lucide-react';
-import { Book } from '../../lib/types';
+import { Download, BookOpen, User } from "lucide-react";
+import { Book } from "../../lib/types";
 
 interface Props {
   book: Book;
 }
 
 export function BookCard({ book }: Props) {
-  const defaultCover = 'https://images.pexels.com/photos/267669/pexels-photo-267669.jpeg?auto=compress&cs=tinysrgb&w=400';
+  const defaultCover =
+    "https://images.pexels.com/photos/267669/pexels-photo-267669.jpeg?auto=compress&cs=tinysrgb&w=400";
 
   return (
-    <div className="glass-card rounded-xl overflow-hidden card-hover group flex flex-col">
+    <div className="glass-card rounded-xl overflow-hidden card-hover group flex flex-col h-full">
       <div className="relative h-52 overflow-hidden bg-[#0e1628] flex items-center justify-center">
         {book.cover_image ? (
           <img

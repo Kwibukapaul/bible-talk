@@ -1,29 +1,31 @@
-import { useState } from 'react';
-import { Mail, Send, Check } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
-import { AnimatedSection } from '../ui/AnimatedSection';
+import { useState } from "react";
+import { Mail, Send, Check } from "lucide-react";
+import { supabase } from "../../lib/supabase";
+import { AnimatedSection } from "../ui/AnimatedSection";
 
 export function SubscribeSection() {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     setLoading(true);
-    setError('');
-    const { error: err } = await supabase.from('subscribers').insert({ email, name });
+    setError("");
+    const { error: err } = await supabase
+      .from("subscribers")
+      .insert({ email, name });
     setLoading(false);
     if (err) {
-      if (err.code === '23505') setError('This email is already subscribed!');
-      else setError('Something went wrong. Please try again.');
+      if (err.code === "23505") setError("This email is already subscribed!");
+      else setError("Something went wrong. Please try again.");
     } else {
       setSuccess(true);
-      setEmail('');
-      setName('');
+      setEmail("");
+      setName("");
     }
   };
 
@@ -38,11 +40,11 @@ export function SubscribeSection() {
             style={{
               width: `${300 + i * 150}px`,
               height: `${300 + i * 150}px`,
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
               animationDuration: `${20 + i * 8}s`,
-              animationDirection: i % 2 === 0 ? 'normal' : 'reverse',
+              animationDirection: i % 2 === 0 ? "normal" : "reverse",
             }}
           />
         ))}
@@ -55,12 +57,11 @@ export function SubscribeSection() {
             Stay Connected
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Subscribe to{' '}
-            <span className="shimmer-text">The Word</span>
+            Subscribe to <span className="shimmer-text">Bible Talk</span>
           </h2>
           <p className="text-slate-400 text-base mb-8 leading-relaxed">
-            Join our community and receive the latest Bible studies, devotionals,
-            testimonies, and updates directly in your inbox.
+            Join our community and receive the latest Bible studies,
+            devotionals, testimonies, and updates directly in your inbox.
           </p>
         </AnimatedSection>
 
@@ -70,11 +71,18 @@ export function SubscribeSection() {
               <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center animate-pulse-gold">
                 <Check size={28} className="text-emerald-400" />
               </div>
-              <p className="text-emerald-400 font-semibold text-lg">You're subscribed!</p>
-              <p className="text-slate-400 text-sm">May God bless you richly. We'll keep you updated.</p>
+              <p className="text-emerald-400 font-semibold text-lg">
+                You're subscribed!
+              </p>
+              <p className="text-slate-400 text-sm">
+                May God bless you richly. We'll keep you updated.
+              </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="glass-card rounded-2xl p-6 sm:p-8">
+            <form
+              onSubmit={handleSubmit}
+              className="glass-card rounded-2xl p-6 sm:p-8"
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <input
                   type="text"
@@ -92,7 +100,9 @@ export function SubscribeSection() {
                   className="input-dark"
                 />
               </div>
-              {error && <p className="text-rose-400 text-sm mb-3 text-left">{error}</p>}
+              {error && (
+                <p className="text-rose-400 text-sm mb-3 text-left">{error}</p>
+              )}
               <button
                 type="submit"
                 disabled={loading}

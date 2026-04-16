@@ -1,31 +1,4 @@
--- Seed admin account and sample content for local/dev
--- Create an admins table to store admin metadata (not Supabase Auth)
-CREATE TABLE IF NOT EXISTS admins (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  email text UNIQUE NOT NULL,
-  name text DEFAULT 'Admin',
-  password_hash text NOT NULL,
-  role text DEFAULT 'admin',
-  created_at timestamptz DEFAULT now()
-);
-
-ALTER TABLE admins ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Service role can insert admins"
-  ON admins FOR INSERT
-  TO authenticated
-  WITH CHECK (true);
-
-CREATE POLICY "Authenticated admins can read admins"
-  ON admins FOR SELECT
-  TO authenticated
-  USING (true);
-
--- NOTE: Replace <BCRYPT_HASH_PLACEHOLDER> with a real bcrypt hash before applying in production.
-INSERT INTO admins (email, name, password_hash, role)
-VALUES ('admin@bibletalk.local', 'Site Admin', '<BCRYPT_HASH_PLACEHOLDER>', 'admin')
-ON CONFLICT (email) DO NOTHING;
-
+-- Seed sample content for local/dev
 -- Insert a sample scripture post (published)
 INSERT INTO posts (title, content, excerpt, category, author, cover_image, published)
 VALUES (
@@ -63,4 +36,3 @@ VALUES (
 )
 ON CONFLICT DO NOTHING;
 
--- If you need to generate a bcrypt for the admin password locally, run the helper script in /scripts

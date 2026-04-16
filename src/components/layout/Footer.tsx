@@ -1,5 +1,5 @@
-import { BookOpen, Heart, Mail, Youtube } from 'lucide-react';
-import { useRouter } from '../../hooks/useRouter';
+import { BookOpen, Heart, Mail, Youtube } from "lucide-react";
+import { useRouter } from "../../hooks/useRouter";
 
 export function Footer() {
   const { navigate } = useRouter();
@@ -14,22 +14,26 @@ export function Footer() {
               <span className="text-white font-bold">Bible Talk Blog</span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
-              A place of faith, reflection, and community. Sharing the living word of God through
-              Bible studies, testimonies, devotionals, and more.
+              A place of faith, reflection, and community. Sharing the living
+              word of God through Bible studies, testimonies, devotionals, and
+              more.
             </p>
             <p className="mt-4 text-amber-400/70 text-xs italic">
-              "Thy word is a lamp unto my feet, and a light unto my path." — Psalm 119:105
+              "Thy word is a lamp unto my feet, and a light unto my path." —
+              Psalm 119:105
             </p>
           </div>
 
           <div>
-            <h4 className="text-slate-200 font-semibold text-sm uppercase tracking-widest mb-4">Navigation</h4>
+            <h4 className="text-slate-200 font-semibold text-sm uppercase tracking-widest mb-4">
+              Navigation
+            </h4>
             <ul className="space-y-2">
               {[
-                { label: 'Home', route: '/' as const },
-                { label: 'Blog & Studies', route: '/blog' as const },
-                { label: 'Books Library', route: '/books' as const },
-                { label: 'Video Sessions', route: '/videos' as const },
+                { label: "Home", route: "/" as const },
+                { label: "Blog & Studies", route: "/blog" as const },
+                { label: "Books Library", route: "/books" as const },
+                { label: "Video Sessions", route: "/videos" as const },
               ].map(({ label, route }) => (
                 <li key={route}>
                   <button
@@ -44,11 +48,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-slate-200 font-semibold text-sm uppercase tracking-widest mb-4">Connect</h4>
+            <h4 className="text-slate-200 font-semibold text-sm uppercase tracking-widest mb-4">
+              Connect
+            </h4>
             <div className="space-y-3">
               <div className="flex items-center gap-2.5 text-slate-400 text-sm">
                 <Mail size={14} className="text-amber-400/70" />
-                <span>thewordblog@email.com</span>
+                <span>bibletalk@email.com</span>
               </div>
               <div className="flex items-center gap-2.5 text-slate-400 text-sm">
                 <Youtube size={14} className="text-amber-400/70" />
@@ -63,7 +69,8 @@ export function Footer() {
             © {new Date().getFullYear()} Bible Talk Blog. All rights reserved.
           </p>
           <p className="flex items-center gap-1.5 text-slate-500 text-xs">
-            Made with <Heart size={11} className="text-amber-400" /> for His glory
+            Made with <Heart size={11} className="text-amber-400" /> for His
+            glory
           </p>
         </div>
       </div>
