@@ -59,7 +59,12 @@ export function VideoCard({ video }: Props) {
           <div className="relative">
             {video.video_type === "upload" ? (
               <div className="video-embed h-48">
-                <video className="w-full h-full object-cover" src={video.video_url} controls autoPlay />
+                <video
+                  className="w-full h-full object-cover"
+                  src={video.video_url}
+                  controls
+                  autoPlay
+                />
               </div>
             ) : embedUrl ? (
               <div className="video-embed h-48">
