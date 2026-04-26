@@ -36,7 +36,7 @@ export function PostCard({ post, onClick }: Props) {
   return (
     <article
       onClick={onClick}
-      className="glass-card rounded-xl overflow-hidden card-hover cursor-pointer group flex flex-col h-full"
+      className="glass-card rounded-xl overflow-hidden card-hover cursor-pointer group flex flex-col h-[360px] w-full"
     >
       <div className="relative h-48 overflow-hidden">
         <img

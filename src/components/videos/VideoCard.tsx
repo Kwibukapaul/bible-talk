@@ -53,17 +53,18 @@ export function VideoCard({ video }: Props) {
   const embedUrl = getEmbedUrl(video);
 
   return (
-    <div className="glass-card rounded-xl overflow-hidden card-hover group flex flex-col h-full">
+    <div className="glass-card rounded-xl overflow-hidden card-hover group flex flex-col h-[360px] w-full">
       <div className="relative flex-shrink-0">
         {playing ? (
           <div className="relative">
             {video.video_type === "upload" ? (
-              <div className="video-embed">
-                <video src={video.video_url} controls autoPlay />
+              <div className="video-embed h-48">
+                <video className="w-full h-full object-cover" src={video.video_url} controls autoPlay />
               </div>
             ) : embedUrl ? (
-              <div className="video-embed">
+              <div className="video-embed h-48">
                 <iframe
+                  className="w-full h-full"
                   src={embedUrl}
                   title={video.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
